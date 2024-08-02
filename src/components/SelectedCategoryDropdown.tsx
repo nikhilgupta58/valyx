@@ -54,8 +54,10 @@ export default function SelectedCategoryDropdown({
     subCategoryArray.forEach((subCategory) => {
       const categoryId = subCategory.categoryId;
       const allChildIds = getAllChildrenIds(subCategory);
-
-      if (updatedSelectedCategories.has(categoryId)) {
+      const isAllChildSelected =
+        allChildIds.length > 0 &&
+        allChildIds.every((childId) => updatedSelectedCategories.has(childId));
+      if (updatedSelectedCategories.has(categoryId) || isAllChildSelected) {
         [categoryId, ...allChildIds].forEach((id) =>
           updatedSelectedCategories.delete(id)
         );
